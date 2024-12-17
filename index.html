@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maaf & Terima Kasih</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            background-color: #000;
+            color: #FFD700;
+            scroll-behavior: smooth;
+        }
+
+        /* Section Styles */
+        .section {
+            height: 100vh;
+            display: flex;
+	    flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+	    gap: 2.5rem; /* 40px */
+            padding: 20px;
+        }
+
+        /* CTA Button Section */
+        #intro {
+            background: linear-gradient(135deg, #4A90E2, #50E3C2);
+            color: #fff;
+        }
+
+        .cta-btn {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #FFD700;
+            border: none;
+            color: #000;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #FFD700;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Text Section */
+        .message {
+            background: #000;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            font-size: 2rem;
+            line-height: 2.5rem;
+            padding: 0 5%;
+        }
+
+        .message:nth-child(odd) {
+            background: #1E1E1E;
+        }
+
+        /* Final Section with Form */
+
+        .final-section {
+            background-color: #222;
+            color: #FFD700;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+	.btn {
+margin-right: 1.5rem; /* 24px */
+	}
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #FFD700;
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .form-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* No Button Moving */
+        .moving {
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Section Pertama -->
+    <section id="intro" class="section">
+        <button class="cta-btn" id="playBtn">🎶 Tekan untuk Melanjutkan 🎶</button>
+    </section>
+
+    <!-- Section Maaf -->
+    <section class="section message">
+        <h1>🙏 Maaf yang Tulus 🙏</h1>
+        <p>"Aku meminta maaf jika ada kata atau tindakan yang melukai hatimu, sengaja maupun tidak sengaja. Maafkan aku."</p>
+    </section>
+
+    <section class="section message">
+        <p>"Terkadang aku tidak menyadari kesalahan yang kubuat, namun percayalah niatku tak pernah untuk menyakiti."</p>
+    </section>
+
+    <!-- Section Terima Kasih -->
+    <section class="section message">
+        <h1>❤️ Terima Kasih ❤️</h1>
+        <p>"Terima kasih atas semua dukungan, kebersamaan, dan cinta yang telah kamu berikan kepadaku."</p>
+    </section>
+
+    <!-- Form Maaf -->
+    <section class="section final-section">
+        <div class="form-container">
+            <h2>🙇‍♀️ Kamu Mau Maafin Aku? 🙇‍♂️</h2>
+            <div>
+                <button class="form-btn btn" id="yesBtn">Iya</button>
+                <button class="form-btn moving" id="noBtn">Tidak</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        const playBtn = document.getElementById("playBtn");
+        const audio = document.getElementById("bgMusic");
+        const sections = document.querySelectorAll(".section");
+        let currentSection = 0;
+
+        // Tombol Play
+        playBtn.addEventListener("click", () => {
+            audio.play();
+            document.getElementById("intro").style.display = "none";
+            document.body.style.overflow = "auto";
+            autoScroll();
+        });
+
+        // Auto Scroll Sekali
+        function autoScroll() {
+            let interval = setInterval(() => {
+                currentSection++;
+                if (currentSection >= sections.length) {
+                    clearInterval(interval);
+                } else {
+                    sections[currentSection].scrollIntoView({
+                        behavior: "smooth"
+                    });
+                }
+            }, 4000);
+        }
+
+        // No Button Logic
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+
+        noBtn.addEventListener("mouseover", moveNoButton);
+        noBtn.addEventListener("click", moveNoButton);
+
+        function moveNoButton() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+
+        // Yes Button Logic
+        yesBtn.addEventListener("click", () => {
+            alert("Terima kasih telah memaafkanku! ❤️");
+        });
+    </script>
+</body>
+</html>
+
